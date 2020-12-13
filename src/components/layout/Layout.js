@@ -25,9 +25,6 @@ function Layout() {
             <NavLink to="/" exact className="nav-link">
               Home
             </NavLink>
-            <NavLink to="/gamedetails" className="nav-link">
-              GameDetails
-            </NavLink>
             <NavLink to="/contact" className="nav-link">
               Contact
             </NavLink>

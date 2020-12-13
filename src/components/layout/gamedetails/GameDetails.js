@@ -15,15 +15,15 @@ export function GameDetails() {
 
   let { id } = useParams();
 
-  const url = BASE_URL + id;
+  const URL = BASE_URL + "/" + id;
 
   useEffect(() => {
-    fetch(url)
+    fetch(URL)
       .then((response) => response.json())
       .then((json) => SetDetail(json))
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
-  }, []);
+  });
 
   if (loading) {
     return <Spinner animation="border" className="spinner" />;
@@ -31,17 +31,29 @@ export function GameDetails() {
 
   return (
     <Row>
-      <Col md={6} className="detail-image">
-        <Image src={detail.background_image} roundedCircle />
-      </Col>
       <Col>
-        <h1>{detail.name}</h1>
-        <p>
-          <b>Rating:</b> {detail.rating}
-        </p>
-        <p>
-          <b>released:</b> {detail.released}
-        </p>
+        <Image
+          className="img-details"
+          src={detail.background_image}
+          alt=""
+        ></Image>
+        <ul className="list">
+          <li>
+            <h1>{detail.name}</h1>
+          </li>
+          <li>
+            <b>{"Description: "}</b>
+            {detail.description}
+          </li>
+          <li>
+            <b>{"Released: "}</b>
+            {detail.released}
+          </li>
+          <li>
+            <b>{"Video: "}</b>
+            <a href={detail.clip.clip}>Click here</a>
+          </li>
+        </ul>
       </Col>
     </Row>
   );

@@ -4,7 +4,6 @@ import Spinner from "react-bootstrap/Spinner";
 import { BASE_URL } from "../../constants/api";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import HomeContent from "./HomeContent";
 import Search from "./Search";
 
@@ -20,6 +19,7 @@ export function Home() {
       .then((response) => response.json())
       .then((json) => {
         result(json.results);
+        console.log(json.results);
         setFilteredItems(json.results);
       })
       .catch((error) => console.log(error))
@@ -45,18 +45,26 @@ export function Home() {
   }
 
   return (
-    <ul>
+    <>
       <Search handleSearch={filterCards} />
-      {filteredItems.map((item) => (
-        <Container>
-          <Row>
-            <Col sm={2} md={4} lg={8} key={item}>
-              <HomeContent key={item} item={item} />
+      <Row>
+        {filteredItems.map((item) => {
+          const { id, name, background_image, rating, released } = item;
+
+          return (
+            <Col sm={6} md={3} key={id}>
+              <HomeContent
+                id={id}
+                name={name}
+                image={background_image}
+                rating={rating}
+                released={released}
+              ></HomeContent>
             </Col>
-          </Row>
-        </Container>
-      ))}
-    </ul>
+          );
+        })}
+      </Row>
+    </>
   );
 }
 
